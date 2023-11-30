@@ -61,7 +61,26 @@ function game() {
     // loop until 5 round
     while(keepGoing) {   
         // create variable of playerSelection to get player choice
-        let playerSelection = prompt("Type your choice: Rock, Paper or Scissor").toUpperCase();
+        let playerSelection = "";
+        // check if player input is valid. If not, repeat the prompt
+        while(!playerSelection){
+            let playerInput = prompt("Type your choice: Rock, Paper or Scissor!").toUpperCase();
+            switch(playerInput) {
+                case("ROCK"):
+                    playerSelection = playerInput;
+                    break;
+                case("PAPER"):
+                    playerSelection = playerInput;
+                    break;
+                case("SCISSOR"):
+                    playerSelection = playerInput;
+                    break;
+                default:
+                    alert("The entered option is not available, try again!")
+                    playerSelection = "";
+                    break;
+            }
+        }
         // create variable of computerSelection to get computer choice
         let computerSelection = getComputerChoice().toUpperCase();
 
@@ -85,16 +104,17 @@ function game() {
                 break;
             default:
                 console.log(`Draw! both are ${playerSelection}s`);
+                break;
         }
 
         // round increment to keep track of rounds
         round++;
 
         // check if player or computer has reached a score of 5
-        if(playerScore === 5 || computerScore === 5) {
-            keepGoing = false;
-        } else {
+        if(round <= 5) {
             keepGoing = true;
+        } else {
+            keepGoing = false;
         }
     }
 

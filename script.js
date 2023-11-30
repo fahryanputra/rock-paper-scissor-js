@@ -1,9 +1,14 @@
+// create function to generate random number
+function randomNumberGenerator(min, max) {
+    return Math.floor(Math.random() * (max - min)) + 1;
+}
+
 // create function getComputerChoice to generate random rock, paper, scissor selection for the computer
 function getComputerChoice() {
     // create int variable of computerChoice with value 0
     let computerChoice = 0;
     // set variable of randomNumber to random integer between 1 and 3
-    computerChoice = Math.floor(Math.random() * 3) + 1;
+    computerChoice = randomNumberGenerator(1, 3);
     // set int variable of computerChoice to str
     if(computerChoice === 1) {
         computerChoice = "Rock"
@@ -41,6 +46,7 @@ function playRound(playerSelection, computerSelection) {
     } else if(
         playerSelection === computerSelection
     ) {
+
         return 2;
     } else {
         return 1;
@@ -104,6 +110,7 @@ function game() {
                 break;
             default:
                 console.log(`Draw! both are ${playerSelection}s`);
+                playRound()
                 break;
         }
 
@@ -121,8 +128,10 @@ function game() {
     // check final winner and show final score
     if(playerScore > computerScore) {
         console.log(`Final score ${playerScore} - ${computerScore}. Player wins!`)
-    } else {
+    } else if(playerScore < computerScore) {
         console.log(`Final score ${playerScore} - ${computerScore}. Computer wins!`)   
+    } else {
+        console.log(`Final score ${playerScore} - ${computerScore}. Draw!`)   
     }
 }
 

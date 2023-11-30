@@ -16,33 +16,94 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-// create const of playerSelection to get player choice
-const playerSelection = "rock";
-// create const of computerSelection to get computer choice
-const computerSelection = getComputerChoice();
-
 // create function playRound with 2 parameters and return the winner
 function playRound(playerSelection, computerSelection) {
+    // create int variable of winner to keep track of round winner
+    // 0 = computer wins
+    // 1 = player wins
+    // 2 = draw
+    let winner = 0;
     if(
-        playerSelection.toUpperCase() === "ROCK" &&
-        computerSelection.toUpperCase() === "PAPER"
+        playerSelection === "ROCK" &&
+        computerSelection === "PAPER"
     ) {
-        return "Computer wins!";
+        return 0;
     } else if(
-        playerSelection.toUpperCase() === "PAPER" &&
-        computerSelection.toUpperCase() === "SCISSOR"
+        playerSelection === "PAPER" &&
+        computerSelection === "SCISSOR"
     ) {
-        return "Computer wins!";
+        return 0;
     } else if(
-        playerSelection.toUpperCase() === "SCISSOR" &&
-        computerSelection.toUpperCase() === "ROCK"
+        playerSelection === "SCISSOR" &&
+        computerSelection === "ROCK"
     ) {
-        return "Computer wins!";
+        return 0;
     } else if(
-        playerSelection.toUpperCase() === computerSelection.toUpperCase()
+        playerSelection === computerSelection
     ) {
-        return "Draw!";
+        return 2;
     } else {
-        return "You win!";
+        return 1;
     }
 }
+
+//create game function to play 5 round of rock, paper, scissor
+function game() {
+    // create int variable of round to keep track of round number
+    let round = 1;
+    // create variable to loop the game
+    let keepGoing = true;
+    // create variable to track player score
+    let playerScore = 0;
+    //create variable to track computer score
+    let computerScore = 0;
+
+    // loop until 5 round
+    while(keepGoing) {   
+        // create variable of playerSelection to get player choice
+        let playerSelection = prompt("Type your choice: Rock, Paper or Scissor").toUpperCase();
+        // create variable of computerSelection to get computer choice
+        let computerSelection = getComputerChoice().toUpperCase();
+
+
+        // show the rounds
+        console.log(`Round: ${round}`);
+        // show player score
+        console.log(`Player Score: ${playerScore}`);
+        // show computer score
+        console.log(`Computer Score: ${computerScore}`);
+
+        // create switch to check the winner each round
+        switch(playRound(playerSelection, computerSelection)){
+            case(0):
+                console.log(`Computer wins! ${computerSelection} beats ${playerSelection}`);
+                computerScore++;
+                break;
+            case(1):
+                console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+                playerScore++;
+                break;
+            default:
+                console.log(`Draw! both are ${playerSelection}s`);
+        }
+
+        // round increment to keep track of rounds
+        round++;
+
+        // check if player or computer has reached a score of 5
+        if(playerScore === 5 || computerScore === 5) {
+            keepGoing = false;
+        } else {
+            keepGoing = true;
+        }
+    }
+
+    // check final winner and show final score
+    if(playerScore > computerScore) {
+        console.log(`Final score ${playerScore} - ${computerScore}. Player wins!`)
+    } else {
+        console.log(`Final score ${playerScore} - ${computerScore}. Computer wins!`)   
+    }
+}
+
+game();

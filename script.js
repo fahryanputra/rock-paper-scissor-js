@@ -166,3 +166,7 @@ playButton.addEventListener('click', () => {
         document.body.appendChild(restartButton);
     }
 });
+
+restartButton.addEventListener('click', () => {
+    location.reload();
+});

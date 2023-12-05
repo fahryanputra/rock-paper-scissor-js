@@ -1,15 +1,15 @@
-// create function to generate random number
+// create function to generate random number.
 function randomNumberGenerator(min, max) {
     return Math.floor(Math.random() * (max - min)) + 1;
 }
 
-// create function getComputerChoice to generate random rock, paper, scissor selection for the computer
+// create function getComputerChoice to generate random rock, paper, scissor selection for the computer.
 function getComputerChoice() {
-    // create int variable of computerChoice with value 0
+    // create int variable of computerChoice with value 0.
     let computerChoice = 0;
-    // set variable of randomNumber to random integer between 1 and 3
+    // set variable of randomNumber to random integer between 1 and 3.
     computerChoice = randomNumberGenerator(1, 3);
-    // set int variable of computerChoice to str
+    // set int variable of computerChoice to str.
     if(computerChoice === 1) {
         computerChoice = "Rock"
     } else if(computerChoice === 2) {
@@ -17,13 +17,13 @@ function getComputerChoice() {
     } else {
         computerChoice = "Scissor"
     }
-    // return variable of computerChoice
+    // return variable of computerChoice.
     return computerChoice;
 }
 
-// create function playRound with 2 parameters and return the winner
+// create function playRound with 2 parameters and return the winner.
 function playRound(playerSelection, computerSelection) {
-    // create int variable of winner to keep track of round winner
+    // create int variable of winner to keep track of round winner.
     // 0 = computer wins
     // 1 = player wins
     // 2 = draw
@@ -53,22 +53,22 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-//create game function to play 5 round of rock, paper, scissor
+//create game function to play 5 round of rock, paper, scissor.
 function game() {
-    // create int variable of round to keep track of round number
+    // create int variable of round to keep track of round number.
     let round = 1;
-    // create variable to loop the game
+    // create variable to loop the game.
     let keepGoing = true;
-    // create variable to track player score
+    // create variable to track player score.
     let playerScore = 0;
-    //create variable to track computer score
+    //create variable to track computer score.
     let computerScore = 0;
 
-    // loop until 5 round
+    // loop until 5 round.
     while(keepGoing) {   
-        // create variable of playerSelection to get player choice
+        // create variable of playerSelection to get player choice.
         let playerSelection = "";
-        // check if player input is valid. If not, repeat the prompt
+        // check if player input is valid. If not, repeat the prompt.
         while(!playerSelection){
             let playerInput = prompt("Type your choice: Rock, Paper or Scissor!").toUpperCase();
             switch(playerInput) {
@@ -87,18 +87,18 @@ function game() {
                     break;
             }
         }
-        // create variable of computerSelection to get computer choice
+        // create variable of computerSelection to get computer choice.
         let computerSelection = getComputerChoice().toUpperCase();
 
 
-        // show the rounds
+        // show the rounds.
         console.log(`Round: ${round}`);
-        // show player score
+        // show player score.
         console.log(`Player Score: ${playerScore}`);
-        // show computer score
+        // show computer score.
         console.log(`Computer Score: ${computerScore}`);
 
-        // create switch to check the winner each round
+        // create switch to check the winner each round.
         switch(playRound(playerSelection, computerSelection)){
             case(0):
                 console.log(`Computer wins! ${computerSelection} beats ${playerSelection}`);
@@ -114,18 +114,11 @@ function game() {
                 break;
         }
 
-        // round increment to keep track of rounds
+        // round increment to keep track of rounds.
         round++;
-
-        // check if player or computer has reached a score of 5
-        if(round <= 5) {
-            keepGoing = true;
-        } else {
-            keepGoing = false;
-        }
     }
 
-    // check final winner and show final score
+    // check final winner and show final score.
     if(playerScore > computerScore) {
         console.log(`Final score ${playerScore} - ${computerScore}. Player wins!`)
     } else if(playerScore < computerScore) {
@@ -135,4 +128,33 @@ function game() {
     }
 }
 
-game();
+// create container to contain rock, paper, scissor and play buttons.
+const buttonContainer = document.createElement('div');
+buttonContainer.setAttribute('class', 'btn-container');
+
+const rockButton = document.createElement('button');
+rockButton.setAttribute('class', 'rock');
+rockButton.textContent = "Rock";
+buttonContainer.appendChild(rockButton);
+
+const paperButton = document.createElement('button');
+paperButton.setAttribute('class', 'paper');
+paperButton.textContent = "Paper";
+buttonContainer.appendChild(paperButton);
+
+const scissorButton = document.createElement('button');
+scissorButton.setAttribute('class', 'scissor');
+scissorButton.textContent = "Scissor";
+buttonContainer.appendChild(scissorButton);
+
+const playButton = document.createElement('button');
+playButton.setAttribute('class', 'play');
+playButton.textContent = "Play"
+buttonContainer.appendChild(playButton);
+
+document.body.appendChild(buttonContainer);
+
+// function to play the round.
+scissorButton.addEventListener('click', () => {
+    playRound();
+})

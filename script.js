@@ -156,11 +156,11 @@ playButton.addEventListener('click', () => {
 
     scoreText.textContent = `Player ${playerScore} - Computer ${computerScore}`;
 
-    if(playerScore === 5) {
+    if(playerScore >= 5) {
         gameText.textContent = "Player WIN the game!"
         playButton.disabled = true;
         document.body.appendChild(restartButton);
-    } else if(computerScore === 5){
+    } else if(computerScore >= 5){
         gameText.textContent = "Computer WIN the game!"
         playButton.disabled == true;
         document.body.appendChild(restartButton);

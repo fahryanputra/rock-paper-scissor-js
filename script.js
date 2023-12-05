@@ -73,6 +73,7 @@ buttonContainer.appendChild(scissorButton);
 const playButton = document.createElement('button');
 playButton.setAttribute('class', 'play');
 playButton.textContent = "Play";
+playButton.disabled = true;
 
 document.body.appendChild(buttonContainer);
 document.body.appendChild(playButton);
@@ -104,6 +105,8 @@ selection.addEventListener('click', (event) => {
             displayPlayerChoice.textContent = ("You selected SCISSOR!");
             break;
     }
+
+    playButton.disabled = false;
 });
 
 // display round winner.
@@ -157,12 +160,14 @@ playButton.addEventListener('click', () => {
     scoreText.textContent = `Player ${playerScore} - Computer ${computerScore}`;
 
     if(playerScore >= 5) {
-        gameText.textContent = "Player WIN the game!"
+        gameText.textContent = "Player WIN the game!";
         playButton.disabled = true;
         document.body.appendChild(restartButton);
-    } else if(computerScore >= 5){
-        gameText.textContent = "Computer WIN the game!"
-        playButton.disabled == true;
+    }
+    
+    if(computerScore >= 5){
+        gameText.textContent = "Computer WIN the game!";
+        playButton.disabled = true;
         document.body.appendChild(restartButton);
     }
 });

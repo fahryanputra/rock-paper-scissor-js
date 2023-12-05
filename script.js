@@ -23,11 +23,10 @@ function getComputerChoice() {
 
 // create function playRound with 2 parameters and return the winner.
 function playRound(playerSelection, computerSelection) {
-    // create int variable of winner to keep track of round winner.
+    // keep track of round winner.
     // 0 = computer wins
     // 1 = player wins
     // 2 = draw
-    let winner = 0;
     if(
         playerSelection === "ROCK" &&
         computerSelection === "PAPER"
@@ -46,85 +45,9 @@ function playRound(playerSelection, computerSelection) {
     } else if(
         playerSelection === computerSelection
     ) {
-
         return 2;
     } else {
         return 1;
-    }
-}
-
-//create game function to play 5 round of rock, paper, scissor.
-function game() {
-    // create int variable of round to keep track of round number.
-    let round = 1;
-    // create variable to loop the game.
-    let keepGoing = true;
-    // create variable to track player score.
-    let playerScore = 0;
-    //create variable to track computer score.
-    let computerScore = 0;
-
-    // loop until 5 round.
-    while(keepGoing) {   
-        // create variable of playerSelection to get player choice.
-        let playerSelection = "";
-        // check if player input is valid. If not, repeat the prompt.
-        while(!playerSelection){
-            let playerInput = prompt("Type your choice: Rock, Paper or Scissor!").toUpperCase();
-            switch(playerInput) {
-                case("ROCK"):
-                    playerSelection = playerInput;
-                    break;
-                case("PAPER"):
-                    playerSelection = playerInput;
-                    break;
-                case("SCISSOR"):
-                    playerSelection = playerInput;
-                    break;
-                default:
-                    alert("The entered option is not available, try again!")
-                    playerSelection = "";
-                    break;
-            }
-        }
-        // create variable of computerSelection to get computer choice.
-        let computerSelection = getComputerChoice().toUpperCase();
-
-
-        // show the rounds.
-        console.log(`Round: ${round}`);
-        // show player score.
-        console.log(`Player Score: ${playerScore}`);
-        // show computer score.
-        console.log(`Computer Score: ${computerScore}`);
-
-        // create switch to check the winner each round.
-        switch(playRound(playerSelection, computerSelection)){
-            case(0):
-                console.log(`Computer wins! ${computerSelection} beats ${playerSelection}`);
-                computerScore++;
-                break;
-            case(1):
-                console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-                playerScore++;
-                break;
-            default:
-                console.log(`Draw! both are ${playerSelection}s`);
-                playRound()
-                break;
-        }
-
-        // round increment to keep track of rounds.
-        round++;
-    }
-
-    // check final winner and show final score.
-    if(playerScore > computerScore) {
-        console.log(`Final score ${playerScore} - ${computerScore}. Player wins!`)
-    } else if(playerScore < computerScore) {
-        console.log(`Final score ${playerScore} - ${computerScore}. Computer wins!`)   
-    } else {
-        console.log(`Final score ${playerScore} - ${computerScore}. Draw!`)   
     }
 }
 
@@ -133,28 +56,113 @@ const buttonContainer = document.createElement('div');
 buttonContainer.setAttribute('class', 'btn-container');
 
 const rockButton = document.createElement('button');
-rockButton.setAttribute('class', 'rock');
+rockButton.setAttribute('id', 'rock');
 rockButton.textContent = "Rock";
 buttonContainer.appendChild(rockButton);
 
 const paperButton = document.createElement('button');
-paperButton.setAttribute('class', 'paper');
+paperButton.setAttribute('id', 'paper');
 paperButton.textContent = "Paper";
 buttonContainer.appendChild(paperButton);
 
 const scissorButton = document.createElement('button');
-scissorButton.setAttribute('class', 'scissor');
+scissorButton.setAttribute('id', 'scissor');
 scissorButton.textContent = "Scissor";
 buttonContainer.appendChild(scissorButton);
 
 const playButton = document.createElement('button');
 playButton.setAttribute('class', 'play');
-playButton.textContent = "Play"
-buttonContainer.appendChild(playButton);
+playButton.textContent = "Play";
 
 document.body.appendChild(buttonContainer);
+document.body.appendChild(playButton);
 
-// function to play the round.
-scissorButton.addEventListener('click', () => {
-    playRound();
-})
+// function to select the hands.
+let selection = document.querySelector('.btn-container');
+let playerChoice = '';
+
+// display player choice.
+const displayPlayerChoice = document.createElement('p');
+displayPlayerChoice.setAttribute('class', 'display-choice');
+displayPlayerChoice.textContent = "Select your hands";
+
+document.body.appendChild(displayPlayerChoice);
+
+// delegate click event from selection to rock, paper, scissor button.
+selection.addEventListener('click', (event) => {
+    let target = event.target;
+    playerChoice = target.id;
+
+    switch(playerChoice) {
+        case 'rock':
+            displayPlayerChoice.textContent = ("You selected ROCK!");
+            break;
+        case 'paper':
+            displayPlayerChoice.textContent = ("You selected PAPER!");
+            break;
+        case 'scissor':
+            displayPlayerChoice.textContent = ("You selected SCISSOR!");
+            break;
+    }
+});
+
+// display round winner.
+const roundText = document.createElement('p');
+roundText.setAttribute('class', 'round-winner');
+roundText.textContent = "";
+document.body.appendChild(roundText);
+
+// initialize scores and set to 0.
+let playerScore = 0;
+let computerScore = 0;
+
+// display score.
+const scoreText = document.createElement('p');
+scoreText.setAttribute('class', 'score-text');
+scoreText.textContent = "";
+document.body.appendChild(scoreText);
+
+// display game winner.
+const gameText = document.createElement('p');
+gameText.setAttribute('class', 'game-winner');
+gameText.textContent = "";
+document.body.appendChild(gameText);
+
+// create restart button.
+const restartButton = document.createElement('button');
+restartButton.setAttribute('class', 'restartButton');
+restartButton.textContent = "Restart";
+
+// create click event to play game to play the game.
+playButton.addEventListener('click', () => {
+    let computerChoice = getComputerChoice();
+    let roundWinner = playRound(playerChoice.toUpperCase(), computerChoice.toUpperCase());
+    let announceText = `You select ${playerChoice.toUpperCase()} vs Computer select ${computerChoice.toUpperCase()}`;
+    let gameWinner = '';
+
+    switch(roundWinner) {
+        case(0):
+            roundText.textContent = `${announceText}, Computer wins!`;
+            computerScore += 1;
+            break;
+        case(1):
+            roundText.textContent = `${announceText}, You win!`;
+            playerScore += 1;
+            break;
+        case(2):
+            roundText.textContent = `${announceText}, round draw!`;
+            break;
+    }
+
+    scoreText.textContent = `Player ${playerScore} - Computer ${computerScore}`;
+
+    if(playerScore === 5) {
+        gameText.textContent = "Player WIN the game!"
+        playButton.disabled = true;
+        document.body.appendChild(restartButton);
+    } else if(computerScore === 5){
+        gameText.textContent = "Computer WIN the game!"
+        playButton.disabled == true;
+        document.body.appendChild(restartButton);
+    }
+});

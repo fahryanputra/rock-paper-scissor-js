@@ -1,3 +1,11 @@
+const selection = "";
+const playButton = "";
+const restartButton = "";
+
+// initialize scores and set to 0.
+let playerScore = 0;
+let computerScore = 0;
+
 // create function to generate random number.
 function randomNumberGenerator(min, max) {
     return Math.floor(Math.random() * (max - min)) + 1;
@@ -51,44 +59,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// create container to contain rock, paper, scissor and play buttons.
-const buttonContainer = document.createElement('div');
-buttonContainer.setAttribute('class', 'btn-container');
-
-const rockButton = document.createElement('button');
-rockButton.setAttribute('id', 'rock');
-rockButton.textContent = "Rock";
-buttonContainer.appendChild(rockButton);
-
-const paperButton = document.createElement('button');
-paperButton.setAttribute('id', 'paper');
-paperButton.textContent = "Paper";
-buttonContainer.appendChild(paperButton);
-
-const scissorButton = document.createElement('button');
-scissorButton.setAttribute('id', 'scissor');
-scissorButton.textContent = "Scissor";
-buttonContainer.appendChild(scissorButton);
-
-const playButton = document.createElement('button');
-playButton.setAttribute('class', 'play');
-playButton.textContent = "Play";
-playButton.disabled = true;
-
-document.body.appendChild(buttonContainer);
-document.body.appendChild(playButton);
-
-// function to select the hands.
-let selection = document.querySelector('.btn-container');
-let playerChoice = '';
-
-// display player choice.
-const displayPlayerChoice = document.createElement('p');
-displayPlayerChoice.setAttribute('class', 'display-choice');
-displayPlayerChoice.textContent = "Select your hands";
-
-document.body.appendChild(displayPlayerChoice);
-
 // delegate click event from selection to rock, paper, scissor button.
 selection.addEventListener('click', (event) => {
     let target = event.target;
@@ -108,33 +78,6 @@ selection.addEventListener('click', (event) => {
 
     playButton.disabled = false;
 });
-
-// display round winner.
-const roundText = document.createElement('p');
-roundText.setAttribute('class', 'round-winner');
-roundText.textContent = "";
-document.body.appendChild(roundText);
-
-// initialize scores and set to 0.
-let playerScore = 0;
-let computerScore = 0;
-
-// display score.
-const scoreText = document.createElement('p');
-scoreText.setAttribute('class', 'score-text');
-scoreText.textContent = "";
-document.body.appendChild(scoreText);
-
-// display game winner.
-const gameText = document.createElement('p');
-gameText.setAttribute('class', 'game-winner');
-gameText.textContent = "";
-document.body.appendChild(gameText);
-
-// create restart button.
-const restartButton = document.createElement('button');
-restartButton.setAttribute('class', 'restartButton');
-restartButton.textContent = "Restart";
 
 // create click event to play game to play the game.
 playButton.addEventListener('click', () => {

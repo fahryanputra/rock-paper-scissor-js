@@ -7,6 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #FBFAF5;
 }
 
 header {
@@ -19,7 +20,7 @@ header {
 }
 
 header > h2 {
-    color: whitesmoke;
+    color: #FBFAF5;
     font-size: 38px;
 }
 
@@ -57,7 +58,7 @@ button {
 
 button:hover:enabled {
     background-color: #31304D;
-    color: whitesmoke;
+    color: #FBFAF5;
 }
 
 .content > .card-container {
@@ -80,7 +81,7 @@ button:hover:enabled {
 .content > .card-container > .card > .player {
     margin-bottom: auto;
     flex: initial;
-    color: whitesmoke;
+    color: #FBFAF5;
     font-size: 20px;
 }
 
@@ -96,7 +97,7 @@ button:hover:enabled {
 .content > .card-container > .card > .score {
     flex: initial;
     margin-top: auto;
-    color: whitesmoke;
+    color: #FBFAF5;
     font-size: 18px;
 }
 

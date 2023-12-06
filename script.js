@@ -1,10 +1,21 @@
-const selection = "";
-const playButton = "";
-const restartButton = "";
+const selection = document.querySelector(".hand-btn-container");
+const announceText = document.querySelector(".announce-text")
+const playButtonContainer = document.querySelector(".play-btn-container");
+const playButton = document.querySelector(".play");
+const playerHandImage = document.querySelector(".hand-player");
+const computerHandImage = document.querySelector(".hand-computer")
+const playerScoreText = document.querySelector(".player-score");
+const computerScoreText = document.querySelector(".computer-score");
 
 // initialize scores and set to 0.
 let playerScore = 0;
 let computerScore = 0;
+
+// check if game ends.
+let endGame = false;
+
+// disable play button at the start.
+playButton.disabled = true;
 
 // create function to generate random number.
 function randomNumberGenerator(min, max) {
@@ -19,11 +30,14 @@ function getComputerChoice() {
     computerChoice = randomNumberGenerator(1, 3);
     // set int variable of computerChoice to str.
     if(computerChoice === 1) {
-        computerChoice = "Rock"
+        computerChoice = "Rock";
+        computerHandImage.setAttribute("src", "./images/rock.png");
     } else if(computerChoice === 2) {
-        computerChoice = "Paper"
+        computerChoice = "Paper";
+        computerHandImage.setAttribute("src", "./images/paper.png");
     } else {
-        computerChoice = "Scissor"
+        computerChoice = "Scissor";
+        computerHandImage.setAttribute("src", "./images/scissor.png");
     }
     // return variable of computerChoice.
     return computerChoice;
@@ -66,13 +80,16 @@ selection.addEventListener('click', (event) => {
 
     switch(playerChoice) {
         case 'rock':
-            displayPlayerChoice.textContent = ("You selected ROCK!");
+            announceText.textContent = ("You selected ROCK!");
+            playerHandImage.setAttribute('src', './images/rock.png')
             break;
         case 'paper':
-            displayPlayerChoice.textContent = ("You selected PAPER!");
+            announceText.textContent = ("You selected PAPER!");
+            playerHandImage.setAttribute('src', './images/paper.png')
             break;
         case 'scissor':
-            displayPlayerChoice.textContent = ("You selected SCISSOR!");
+            announceText.textContent = ("You selected SCISSOR!");
+            playerHandImage.setAttribute('src', './images/scissor.png')
             break;
     }
 
@@ -83,38 +100,55 @@ selection.addEventListener('click', (event) => {
 playButton.addEventListener('click', () => {
     let computerChoice = getComputerChoice();
     let roundWinner = playRound(playerChoice.toUpperCase(), computerChoice.toUpperCase());
-    let announceText = `You select ${playerChoice.toUpperCase()} vs Computer select ${computerChoice.toUpperCase()}`;
     let gameWinner = '';
 
     switch(roundWinner) {
         case(0):
-            roundText.textContent = `${announceText}, Computer wins!`;
+            announceText.textContent = "Computer wins!";
             computerScore += 1;
             break;
         case(1):
-            roundText.textContent = `${announceText}, You win!`;
+            announceText.textContent = "You win!";
             playerScore += 1;
             break;
         case(2):
-            roundText.textContent = `${announceText}, round draw!`;
+            announceText.textContent = "Round draw!";
             break;
     }
 
-    scoreText.textContent = `Player ${playerScore} - Computer ${computerScore}`;
+    playerScoreText.textContent = playerScore;
+    computerScoreText.textContent = computerScore;
 
+    // check player and computer score.
     if(playerScore >= 5) {
-        gameText.textContent = "Player WIN the game!";
-        playButton.disabled = true;
-        document.body.appendChild(restartButton);
+        announceText.textContent = "PLAYER win the game!";
+        endGame = true;
     }
     
     if(computerScore >= 5){
-        gameText.textContent = "Computer WIN the game!";
-        playButton.disabled = true;
-        document.body.appendChild(restartButton);
+        announceText.textContent = "COMPUTER win the game!";
+        endGame = true;
     }
-});
 
-restartButton.addEventListener('click', () => {
-    location.reload();
+    // create restart button when game ends.
+    if(endGame === true) {
+        playButton.disabled = true;
+
+        // disable player hand selection.
+        const handButton = selection.children;
+        Object.values(handButton).forEach(button => {
+            button.disabled = true;
+        });
+        
+        // create restart button.
+        const restartButton = document.createElement('button');
+        restartButton.setAttribute('class', 'restart');
+        restartButton.textContent = "Restart";
+
+        playButtonContainer.appendChild(restartButton);
+
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
+    }
 });

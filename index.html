@@ -12,17 +12,17 @@
         <h2>Rock, Paper, Scissor</h2>
     </header>
     <div class="content">
-        <div class="announce-text">
-            <p>Choose your hand!</p>
+        <div class="announce-container">
+            <p class="announce-text">Choose your hand!</p>
         </div>
         <div class="btn-container">
-            <div class="hand-btn">
-                <button>Rock</button>
-                <button>Paper</button>
-                <button>Scissor</button>
+            <div class="hand-btn-container">
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissor">Scissor</button>
             </div>
-            <div class="play-btn">
-                <button>Play</button>
+            <div class="play-btn-container">
+                <button class="play">Play</button>
             </div>
         </div>
         <div class="card-container">
@@ -31,10 +31,10 @@
                     <p>Player</p>
                 </div>
                 <div class="hand-container">
-                    <img src="./images/rock.png" alt="Rock" width="128" height="128">
+                    <img class="hand-player" src="./images/rock.png" alt="Rock" width="128" height="128">
                 </div>
                 <div class="score">
-                    <p>Score: 0</p>
+                    <p>Score: <span class="player-score">0</span></p>
                 </div>
             </div>
             <div class="card">
@@ -42,10 +42,10 @@
                     <p>Computer</p>
                 </div>
                 <div class="hand-container">
-                    <img src="./images/rock.png" alt="Rock" width="128" height="128">
+                    <img class="hand-computer" src="./images/rock.png" alt="Rock" width="128" height="128">
                 </div>
                 <div class="score">
-                    <p>Score: 0</p>
+                    <p>Score: <span class="computer-score">0</span></p>
                 </div>
             </div>
         </div>

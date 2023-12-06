@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 * {
     box-sizing: border-box;
 }
@@ -8,6 +10,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: #FBFAF5;
+    font-family: 'Varela Round', sans-serif;
 }
 
 header {
